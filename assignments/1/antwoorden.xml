@@ -1,0 +1,37 @@
+<voorbeelden>
+    <vraag>
+        <string>In welk jaar zijn de eerste olympische winterspelen gehouden?</string>
+        <antwoord>
+            <string>1924</string>
+            <locatie>http://dbpedia.org/page/Winter_Olympic_Games</locatie>
+        </antwoord>
+    </vraag>
+    <vraag>
+        <string>Wanneer zijn de olympische zomerspelen gehouden?</string>
+        <antwoord>
+            <string>1936,1976,1972,1932,1996,1992,1956,1952,1912,2012,1984,1904,1900,2000,1988,1980,1908,2004,2008,1948,1896,1968,1920,1924,1964,1960,1928,1906</string>
+            <locatie>http://dbpedia.org/page/Category:Summer_Olympics_events_by_year</locatie>
+        </antwoord>
+    </vraag>
+    <vraag>
+        <string>Wie hebben er allemaal bronzen medailles gewonnen voor Tsjecho-Slowakije?</string>
+        <antwoord>
+            <string>Jiří Parma,František Provazník,Jiří Kochta,Jiří Malec,Jiří Skobla,Jiří Svoboda (volleyball),Otakar Janecký,Drahomír Kadlec,Róbert Švehla,Peter Veselovský,Tomáš Goder,Květa Jeriová,Václav,Nedomanský,Eva Šuranová,Alfréd Jindra,Josef Musil,Bohuslav Šťastný,Patrik Augusta,Jiří Holeček,Antonín Procházka (volleyball),Kamil Kašťák,Pavel Schenk,Vladimír Petříček,Ján Franek,Karel,Hartmann,Richard Šmehlík,Otakar Vindyš,Jaroslav Sakala,František Pospíšil,František Douda,František Sokol,František Tikal,Miloslav Mečíř,Leo Gudas,Drahomír Koudelka,Petr Barna,Miloslav Hořava,Vilém Loos,Karel Pešek,Zdeněk Groessl,Zdeněk Pecka,Petr Bříza,Petr Hrbek,Igor Liba,Petr Rosol,Miroslav Koníček,Milan Šrejber,Hana Mašková,Helena Fibingerová,Radim Nyč,Vladimír Jánoš,Pavel Ploc,Václav,Korunka,Pavel Benc,Jozef Sabovčík,Ivan Hlinka,Rudolf Burkert,František Jež,František Procházka,Jiří Šlégr,Ludvík Daněk,Ludvík Vébr,Vladimír Martinec,Jaromír Dragan,Tomáš Jelínek,Ladislav Lubina,Bedřich Ščerban,Oldřich Svoboda,Radek Ťoupal,Richard Žemlička,Petr Kop,Bohumil Durdis,Jan Peka,Ladislav Švanda,Jaroslav Helebrand,Josef Černý,Helena Šikolová,Vladimír Dzurilla,Oldřich Macháč,Olga,Charvátová,Josef Šroubek,Jaroslav Holík,Jiří Lundák,Josef Věntus,Jaroslav Jiřík,Václav Pavkovič,Bohumil Mořkovský,Josef Smolka,Luděk Pojezný,Bohumil Janoušek,Bohumil Golián,Otakar Mareček,Jaroslav,Skobla,Karel Wälzer,Karel Neffe,Josef Němec,Pavel Svojanovský,Ladislav Vácha</string>
+            <locatie>http://dbpedia.org/page/Category:Olympic_bronze_medalists_for_Czechoslovakia</locatie>
+        </antwoord>
+    </vraag>
+    <vraag>
+        <string>In welk stadion vond de opening plaats van de winterspelen van 1992?</string>
+        <antwoord>
+            <string>Théâtre_des_Cérémonies</string>
+            <locatie>http://dbpedia.org/page/1992_Winter_Olympics</locatie>
+        </antwoord>
+    </vraag>
+    <vraag>
+        <string>Hoeveel landen deden er mee aan de eerste olympische zomerspelen?</string>
+        <antwoord>
+            <string>14</string>
+            <locatie>http://dbpedia.org/page/1896_Summer_Olympics</locatie>
+        </antwoord>
+    </vraag>
+</voorbeelden>
