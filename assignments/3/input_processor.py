@@ -1,11 +1,13 @@
 import re
 import csv
+import sys
 import editdist
+import itertools
 
 class InputProcessor:
 
     question_types = [\
-    ("list", re.compile("^(noem|geef)\s(een|de|alle)?\s?(lijst|overzicht|namen|voorbeelden)?\s?(van|met)?")),\
+    ("list", re.compile("^(noem|geef)\s(een|de|alle)?\s?(lijst|overzicht|namen|voorbeelden)?\s?(van|met)?\s?(alle|elke)?")),\
     ("list", re.compile("(lijst|\w+)\svan")),\
     ("question", re.compile("^(waar\sover|hoe\slang|hoe\sveel|wie|wat|waar|wanneer|hoe|waarom)(\s(is|zijn))?"))]
 
@@ -34,19 +36,47 @@ class InputProcessor:
         self.__input_filtered = self.__input_raw.lower()
         self.__words = [word.strip() for word in self.__input_filtered.split(' ')]
 
-    def query_from_input(self):
+    def category_from_input(self):
         
         if (self.__input_raw == None or self.__input_raw == ""):
             raise Exception("Processor: Er is geen vraag gesteld aan het systeem (lege input ontvangen)")
 
         relevant = self.extract_relevant_part().capitalize()
-        print relevant
-        print self.generate_variations(self.to_array(relevant))
+        variations = self.generate_variations(self.to_array(relevant))
+        categories = self.make_categories(self.generate_combinations(variations))
+        
+        best_hit = self.determine_best_match(categories)
+        if best_hit[0] == "fuzzy":
+            print "Meest logische categorie: ", best_hit[1]
+
+        return "_".join(self.to_array(best_hit[2]))
+
 
 #--------------------------
 # PRIVATE FUNCTIONS
 #--------------------------
  
+    def determine_best_match(self, categories):
+        #compare every possible category with the nl2en dictionary
+        #if a hit is found, return the matched category
+        for cat in categories:
+            if cat in self.__nl2en:
+                return (("hit", cat, self.__nl2en[cat]))
+
+        #if no hit is found, determine the smallest edit distance and return the fuzzy match
+        print "Geen directe match gevonden, probeer meest logische categorie te vinden..."
+        #set the distance to some large number
+        dist = sys.maxint
+        match = None
+        for key in self.__nl2en:
+            for cat in categories:
+                newdist = editdist.distance(cat, key)
+                if newdist < dist:
+                    dist = newdist
+                    match = key
+
+        return (("fuzzy", match, self.__nl2en[match]))
+
     def generate_variations(self, words):
         variations = []
 
@@ -57,6 +87,16 @@ class InputProcessor:
                 match = _type[1].search(word)
                 if match:
                     variations[-1][1].append(self.do_inflection(word, match.group(), _type))
+
+        return variations
+
+    def generate_combinations(self,variations):
+        #return all possible carthesian combinations of the relevant inflections
+        return list(itertools.product(*[var[1] for var in variations]))
+
+    def make_categories(self, combinations):
+        #join every entry of combinations of words with an underscore and return
+        return [" ".join(n_ple) for n_ple in combinations]
 
 
     def do_inflection(self, word, match, _type):
