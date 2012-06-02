@@ -1,6 +1,6 @@
 from alpino_query import AlpinoQuery, SentStruct
 
-print "question: ", SentStruct.POEP
+print "question: ", SentStruct.QUESTION
 
 sentence = raw_input("Geef een zin op voor Alpino om te parsen: \n")
 
