@@ -23,7 +23,7 @@ class Program:
                 category = self.__processor.category_from_input()
                 #print the category and it's link
                 output = category + " ".join(["" for x in range(50 - len(category))]) + "http://dbpedia.org/resources/" + category
-                dashes = "".join(["-" for x in range(len(output))])
+                dashes = len(output) * '-'
                 print "\n\n" + dashes + "\n" + output + "\n" + dashes + "\n\n"
                 
                 self.__sparqlQuery.setQueryFromCategory(category)
