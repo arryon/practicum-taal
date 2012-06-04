@@ -2,17 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import socket
+import sentence
+from sentence import SentStruct, Sentence
 from  lxml import etree
 
-
-class SentStruct:
-    QUESTION = "question"
-    QUANTITY = "qty"
-    WHO = "who"
-    WHAT = "what"
-    DATE = "when"
-    PLACE = "where"
-    UNKNOWN = "?"
 
 class AlpinoQuery:
     host = "vingolf.let.rug.nl"
@@ -20,15 +13,19 @@ class AlpinoQuery:
 
     sentence = ""
     xml = ""
+
+    
     
     def __init__(self, sentence = None):
-        self.sentence = sentence
+        self.sentence = Sentence(sentence)
 
     def query(self):
+        sentence = self.sentence.getOriginal()
+
         s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect((self.host,self.port))
-        self.sentence += "\n\n"
-        s.sendall(self.sentence)
+        sentence += "\n\n"
+        s.sendall(sentence)
 
         total_xml= ""
         while True:
@@ -41,13 +38,15 @@ class AlpinoQuery:
         self.etree = xml
         self.xml = total_xml
 
-    def named_entities(self, xml = None, string = None):
+    def named_entities(self, string = None, xml = None):
         if not xml:
-            xml = self.xml
+            xml = self.etree
+
 
         if string:
             named_entities = xml.xpath(string)
         else:
+                #return the proper nouns
             named_entities = xml.xpath("//node[@pos='name']")
 
         ne_list = []
@@ -67,7 +66,29 @@ class AlpinoQuery:
 # FUNCTIONS FOR DETERMINING SENTENCE STRUCTURE
 #---------------------------------------------
 
-    def 
+    def getSentenceType(self):
+        #question sentence
+        if len(self.named_entities('//node[@cat="whq"]')) > 0:
+            self.sentence.addType(SentStruct.QUESTION)
+        #quantity sentence
+        if len(self.named_entities('//node[contains(@frame, "wh_adjective") and @root="hoeveel"]')) > 0:
+            self.sentence.addType(SentStruct.QUANTITY)
+        #what
+        if len(self.named_entities('//node[contains(@frame, "pronoun") and @wh="ywh" and @root="wat"]')) > 0:
+            self.sentence.addType(SentStruct.WHAT)
+        #who
+        if len(self.named_entities('//node[contains(@frame, "pronoun") and @wh="ywh" and @root="wie"]')) > 0:
+            self.sentence.addType(SentStruct.WHO)
+        #date
+        if len(self.named_entities('//node[@frame="wh_tmp_adverb" and @root="wanneer"]')) > 0:
+            self.sentence.addType(SentStruct.DATE)
+        #place
+        if len(self.named_entities('//node[@frame="er_wh_loc_adverb" and @root="waar"]')) > 0:
+            self.sentence.addType(SentStruct.LOC)
+
+        return self.sentence.getTypes()
+        
+        
 
 
 #-----------------------------------------
@@ -81,6 +102,6 @@ class AlpinoQuery:
         return self.xml
 
     def setSentence(self, sentence):
-        self.sentence = sentence
+        self.sentence.setOriginal(sentence)
 
 
